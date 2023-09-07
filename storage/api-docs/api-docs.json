@@ -1,0 +1,497 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API de Películas",
+        "description": "API para gestionar películas",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/peliculas": {
+            "get": {
+                "tags": [
+                    "Peliculas"
+                ],
+                "summary": "Obtener todas las películas",
+                "operationId": "getAllPeliculas",
+                "responses": {
+                    "200": {
+                        "description": "Lista de películas"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Peliculas"
+                ],
+                "summary": "Crear una nueva película",
+                "operationId": "createPelicula",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Nombre de la película"
+                                    },
+                                    "duracion": {
+                                        "type": "integer",
+                                        "example": 120
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Película creada exitosamente"
+                    },
+                    "422": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Los datos proporcionados son inválidos."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/peliculas/{id}": {
+            "get": {
+                "tags": [
+                    "Peliculas"
+                ],
+                "summary": "Obtener una película por su ID",
+                "operationId": "getPeliculaById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la película",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la película"
+                    },
+                    "404": {
+                        "description": "Pelicula no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "Peliculas"
+                ],
+                "summary": "Actualizar una película existente",
+                "operationId": "updatePelicula",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la película",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Nuevo nombre de la película"
+                                    },
+                                    "duracion": {
+                                        "type": "integer",
+                                        "example": 150
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Película actualizada exitosamente"
+                    },
+                    "404": {
+                        "description": "Pelicula no encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Peliculas"
+                ],
+                "summary": "Eliminar una película",
+                "operationId": "deletePelicula",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la película",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pelicula eliminada exitosamente"
+                    },
+                    "404": {
+                        "description": "Pelicula no encontrada"
+                    }
+                }
+            }
+        },
+        "/api/pelicula-salacine": {
+            "get": {
+                "tags": [
+                    "PeliculaSalacine"
+                ],
+                "summary": "Obtener todas las películas en salas de cine",
+                "operationId": "getAllPeliculaSalacine",
+                "responses": {
+                    "200": {
+                        "description": "Lista de películas en salas de cine"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "PeliculaSalacine"
+                ],
+                "summary": "Crear una nueva película en sala de cine",
+                "operationId": "createPeliculaSalacine",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_sala_cine": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-09-10"
+                                    },
+                                    "fecha_fin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-09-20"
+                                    },
+                                    "id_pelicula": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Película en sala de cine creada exitosamente"
+                    }
+                }
+            }
+        },
+        "/api/pelicula-salacine/{id}": {
+            "get": {
+                "tags": [
+                    "PeliculaSalacine"
+                ],
+                "summary": "Obtener una película en sala de cine por su ID",
+                "operationId": "getPeliculaSalacineById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la película en sala de cine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la película en sala de cine"
+                    },
+                    "404": {
+                        "description": "PeliculaSalacine no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "PeliculaSalacine"
+                ],
+                "summary": "Actualizar una película en sala de cine existente",
+                "operationId": "updatePeliculaSalacine",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la película en sala de cine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "id_sala_cine": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "fecha_publicacion": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-09-10"
+                                    },
+                                    "fecha_fin": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-09-20"
+                                    },
+                                    "id_pelicula": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Película en sala de cine actualizada exitosamente"
+                    },
+                    "404": {
+                        "description": "PeliculaSalacine no encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "PeliculaSalacine"
+                ],
+                "summary": "Eliminar una película en sala de cine",
+                "operationId": "deletePeliculaSalacine",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la película en sala de cine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Pelicula en sala de cine eliminada exitosamente"
+                    },
+                    "404": {
+                        "description": "PeliculaSalacine no encontrada"
+                    }
+                }
+            }
+        },
+        "/api/salas-cine": {
+            "get": {
+                "tags": [
+                    "SalaCine"
+                ],
+                "summary": "Obtener todas las salas de cine",
+                "operationId": "getAllSalasCine",
+                "responses": {
+                    "200": {
+                        "description": "Lista de salas de cine"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "SalaCine"
+                ],
+                "summary": "Crear una nueva sala de cine",
+                "operationId": "createSalaCine",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Nombre de la sala de cine"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "Abierta"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Sala de Cine creada exitosamente"
+                    },
+                    "422": {
+                        "description": "Ya existe una sala de cine con este nombre"
+                    }
+                }
+            }
+        },
+        "/api/salas-cine/{id}": {
+            "get": {
+                "tags": [
+                    "SalaCine"
+                ],
+                "summary": "Obtener una sala de cine por su ID",
+                "operationId": "getSalaCineById",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la sala de cine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la sala de cine"
+                    },
+                    "404": {
+                        "description": "Sala de Cine no encontrada"
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "SalaCine"
+                ],
+                "summary": "Actualizar una sala de cine existente",
+                "operationId": "updateSalaCine",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la sala de cine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "nombre": {
+                                        "type": "string",
+                                        "example": "Nuevo nombre de la sala de cine"
+                                    },
+                                    "estado": {
+                                        "type": "string",
+                                        "example": "Cerrada"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Sala de Cine actualizada exitosamente"
+                    },
+                    "404": {
+                        "description": "Sala de Cine no encontrada"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "SalaCine"
+                ],
+                "summary": "Eliminar una sala de cine",
+                "operationId": "deleteSalaCine",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID de la sala de cine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Sala de Cine eliminada exitosamente"
+                    },
+                    "404": {
+                        "description": "Sala de Cine no encontrada"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "PeliculaSalacine",
+            "description": "Operaciones relacionadas con PeliculaSalacine"
+        },
+        {
+            "name": "SalaCine",
+            "description": "Operaciones relacionadas con Salas de Cine"
+        }
+    ]
+}
