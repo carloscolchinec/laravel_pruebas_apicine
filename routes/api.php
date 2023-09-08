@@ -26,12 +26,16 @@ Route::prefix('salas-cine')->group(function () {
     Route::get('/{id}', [SalaCineController::class, 'show']);
     Route::post('/', [SalaCineController::class, 'store']);
     Route::put('/{id}', [SalaCineController::class, 'update']);
+    Route::get('/buscar-peliculas-en-sala', [PeliculaSalacineController::class, 'searchMoviesByCinemaName']);
+
     Route::delete('/{id}', [SalaCineController::class, 'destroy']);
 });
 
 
 Route::prefix('pelicula-salacine')->group(function () {
     Route::get('/', [PeliculaSalacineController::class, 'index']);
+    Route::get('/buscar', [PeliculaSalacineController::class, 'searchMovieByNameAndRoom']);
+    Route::get('/publicadas', [PeliculaSalacineController::class, 'getQuantityMoviesPublishedBeforeDate']);
     Route::get('/{id}', [PeliculaSalacineController::class, 'show']);
     Route::post('/', [PeliculaSalacineController::class, 'store']);
     Route::put('/{id}', [PeliculaSalacineController::class, 'update']);

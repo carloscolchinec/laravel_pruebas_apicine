@@ -23,6 +23,8 @@ class PeliculaService
         return $this->peliculaRepository->find($id);
     }
 
+ 
+    
     public function createPelicula($data)
     {
         return $this->peliculaRepository->create($data);

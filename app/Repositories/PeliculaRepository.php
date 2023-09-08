@@ -20,6 +20,7 @@ class PeliculaRepository
     {
         return Pelicula::create($data);
     }
+    
 
     public function update($id, $data)
     {

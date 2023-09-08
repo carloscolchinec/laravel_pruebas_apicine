@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\PeliculaSalacineRepository;
+use Carbon\Carbon;
+
 
 class PeliculaSalacineService
 {
@@ -21,6 +23,21 @@ class PeliculaSalacineService
     public function getPeliculaSalacineById($id)
     {
         return $this->peliculaSalacineRepository->find($id);
+    }
+
+    public function searchMovieByNameAndRoom($nombre, $idSala)
+    {
+        return $this->peliculaSalacineRepository->searchMovieByNameAndRoom($nombre, $idSala);
+    }
+
+    public function getQuantityMoviesPublishedBeforeDate($fechaString){
+        $fecha = Carbon::parse($fechaString); // Convierte la cadena de fecha en un objeto Carbon
+        return $this->peliculaSalacineRepository->getQuantityMoviesPublishedBeforeDate($fecha);
+    }
+
+    public function getMovieCountByCinemaName($nombreSala)
+    {
+        return $this->peliculaSalacineRepository->getMovieCountByCinemaName($nombreSala);
     }
 
     public function createPeliculaSalacine($data)

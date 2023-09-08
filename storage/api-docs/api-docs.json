@@ -136,6 +136,9 @@
                     "200": {
                         "description": "Película actualizada exitosamente"
                     },
+                    "400": {
+                        "description": "Datos de solicitud inválidos"
+                    },
                     "404": {
                         "description": "Pelicula no encontrada"
                     }
@@ -330,6 +333,132 @@
                     },
                     "404": {
                         "description": "PeliculaSalacine no encontrada"
+                    }
+                }
+            }
+        },
+        "/api/peliculas/cantidad-publicadas": {
+            "get": {
+                "tags": [
+                    "Peliculas"
+                ],
+                "summary": "Obtener la cantidad de películas publicadas antes de una fecha",
+                "operationId": "getQuantityMoviesPublishedBeforeDate",
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "query",
+                        "description": "Fecha a partir de la cual se contarán las películas publicadas",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cantidad de películas publicadas y lista de películas",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "cantidad": {
+                                            "type": "integer",
+                                            "example": 5
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Error de validación",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Los datos proporcionados son inválidos."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pelicula-salacine/buscar": {
+            "get": {
+                "tags": [
+                    "PeliculaSalacine"
+                ],
+                "summary": "Buscar una película por nombre de película e identificador de sala",
+                "operationId": "buscarPeliculaPorNombreYSala",
+                "parameters": [
+                    {
+                        "name": "nombre",
+                        "in": "query",
+                        "description": "Nombre de la película",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id_sala",
+                        "in": "query",
+                        "description": "ID de la sala de cine",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Detalles de la película encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "nombre": {
+                                            "type": "string",
+                                            "example": "Nombre de la película"
+                                        },
+                                        "duracion": {
+                                            "type": "integer",
+                                            "example": 120
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Pelicula no encontrada",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "PeliculaSalacine no encontrada"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     }
                 }
             }
